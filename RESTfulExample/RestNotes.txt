@@ -1,0 +1,137 @@
+=================================================================================
+Rest( Representational State Transfer)
+---------------------------------------------------------------------------------
+   -Fast, htttp,stateless: 
+   -Language and Platform independent: 
+   -Permits different data format: Plain Text, HTML, XML and JSON.
+   -Uses http and URI for exposing wervices
+   -requires less bandwidth 
+	- Everything in REST is considered as a resource identified by URI.
+	-Can use SOAP
+	
+Defnition:
+----------
+ REST based architecture everything is a resource. A resource is accessed via a 
+ common interface based on 
+ the HTTP standard methods. 
+ In a REST based architecture you typically have a REST server which provides access 
+ to the resources and
+  a REST client which accesses and modifies the REST resources.	
+	
+HTTP Request
+-------------------
+verb  uri  http-version
+req header
+req body
+
+Verb- Indicate HTTP methods such as GET, POST, DELETE, PUT etc.
+URI- Uniform Resource Identifier (URI) to identify the resource on server
+HTTP Version- Indicate HTTP version, for example HTTP v1.1 .
+Request Header- Contains metadata for the HTTP Request message as key-value pairs. 
+ client ( or browser) type, format supported by client, format of message body, cache settings etc.
+Request Body- Message content or Resource representation.
+	
+
+
+
+GET - Provides a read only access to a resource.
+PUT - Used to create a new resource.
+DELETE - Used to remove a resource.
+POST - Used to update a existing resource or create a new resource.
+OPTIONS - Used to get the supported operations on a resource.
+
+
+ 
+
+
+Principle 1: Use the same HTTP protocol methods
+Principle 2: Stateless
+Principle 3: Represent everything with URIs
+Principle 4: Multiple representations support 
+
+Every “thing” has a URI
+From a URI we know
+--The protocol (How do we communicate)
+--The host/port (Where it is on network)
+--The resource path(What resource are we
+communicating with
+Human readable URIs:
+Query parameters
+URI Parameters OR PATH PARAM
+
+Any rest has:
+---------------------
+URL http://del.icio.us/api/[username]/book marks/
+Method GET
+Querystring  tag= Filter by tag 
+Returns
+
+Example:
+
+/orders
+--GET - list all orders
+--POST - submit a new order
+
+/orders/{order-id}
+  GET - get an order representation
+  PUT - update an order
+  DELETE - cancel an order
+
+
+	
+Http Response
+-------------------
+response code  http version
+res header
+res body
+
+
+
+200  OK, shows success.
+201  CREATED, when a resource is successful created using POST or PUT request. 
+204  NO CONTENT, when response body is empty for example, a DELETE request.
+304  NOT MODIFIED, used to reduce network bandwidth usage in case of conditional GET requests.
+ Response body should be empty. Headers should have date, location etc.
+400  BAD REQUEST, states that invalid input is provided e.g. validation error, missing data.
+401  UNAUTHORIZED, states that user is using invalid or wrong authentication token.
+403  FORBIDDEN, states that user is not having access to method being used for example, delete access without admin rights.
+404  NOT FOUND, states that method is not available.
+409  CONFLICT, states conflict situation while executing the method for example, adding duplicate entry.
+500  INTERNAL SERVER ERROR, states that server has thrown some exception while executing the method.
+
+implementation : jersey or resteasy
+Jax rs
+----------- 
+
+
+
+annotations:
+----------------------
+@PATH(your_path)
+Sets the path to base URL + /your_path. 
+@POST
+@GET
+@PUT
+@DELETE
+@Produces(MediaType.TEXT_PLAIN[, more-types])
+@Consumes(type[, more-types])
+@PathParam
+@URLParam
+@@FormParam
+
+RestServer
+RestClient
+RestClientApacheHttp
+
+
+// @Context HttpServletRequest request , Uriinfo , HttpHeadres
+	//@HeaderParam
+	//exception handling - ExceptionMapper for serviceException
+	//exception handling - GenericExceptionMapper for Throwable
+	//send multi formats @Produces("application/xml,application/json")
+	//@BeanParam to encapsulate many queryparam in a class.
+	//nested URL /dept/1234/employee/2345 sub resources
+	//add response headers .created(new Uri("")) - uriInfoobj.getAbsolutePath() add uri or 
+	//uriInfo.getabsolitepathbuilder().path(id).build(); gives uri obj
+	//
+	
