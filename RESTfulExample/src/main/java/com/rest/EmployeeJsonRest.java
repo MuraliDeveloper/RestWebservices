@@ -20,6 +20,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -119,6 +120,66 @@ public class EmployeeJsonRest {
 		}
 	}
 
+	//URL : http://localhost:8082/RestServer/rest/employee/1000
+	@Path("/{id}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getEmpById(
+			@PathParam("id") int empId){
+		//get emp obj from service 
+		Employee employee = map.get(""+empId);
+		EmployeeResponse response = new EmployeeResponse();
+		int status = 200;
+		if(employee==null){
+			status =  400;
+			response.setAppStatus("ERRO1");
+			response.setStatusMsg("Employee Id not found");
+		}else{
+			response.getEmps().add(employee);
+			response.setStatusMsg("SUCCESS");
+			response.setAppStatus(SUCCESS_CODE);
+		}
+		return Response.status(status).entity(response).build();
+	}
+	
+	@Path("/query")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getEmpByIdWithParam(
+			@QueryParam("empId") int empId){
+		//get emp obj from service 
+		Employee employee = map.get(""+empId);
+		EmployeeResponse response = new EmployeeResponse();
+		int status = 200;
+		if(employee==null){
+			status =  400;
+			response.setAppStatus("ERRO1");
+			response.setStatusMsg("Employee Id not found");
+		}else{
+			response.getEmps().add(employee);
+			response.setStatusMsg("SUCCESS");
+			response.setAppStatus(SUCCESS_CODE);
+		}
+		return Response.status(status).entity(response).build();
+	}
+	//URL : http://localhost:8082/RestServer/rest/employee/1000
+	@Path("/{id}")
+	@DELETE
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response  delete(@PathParam("id") int empId){
+		Employee employee = map.get(""+empId);
+		EmployeeResponse response = new EmployeeResponse();
+		if(employee==null){
+			response.setAppStatus("ERRO1");
+			response.setStatusMsg("Employee Id not found");
+		}else{
+			map.remove(""+empId);
+			response.setStatusMsg("SUCCESS");
+			response.setAppStatus(SUCCESS_CODE);
+		}
+		return Response.status(204).entity(response).build();
+	}
+
 	private boolean isExistingEmployee(String id) {
 		return map.containsKey(id);
 	}
@@ -156,44 +217,6 @@ public class EmployeeJsonRest {
 		return Response.status(status).entity(response).build();
 	}
 	
-	//URL : http://localhost:8082/RestServer/rest/employee/1000
-	@Path("/{id}")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getEmpById(
-			@PathParam("id") int empId){
-		//get emp obj from service 
-		Employee employee = map.get(""+empId);
-		EmployeeResponse response = new EmployeeResponse();
-		int status = 200;
-		if(employee==null){
-			status =  400;
-			response.setAppStatus("ERRO1");
-			response.setStatusMsg("Employee Id not found");
-		}else{
-			response.getEmps().add(employee);
-			response.setStatusMsg("SUCCESS");
-			response.setAppStatus(SUCCESS_CODE);
-		}
-		return Response.status(status).entity(response).build();
-	}
-	//URL : http://localhost:8082/RestServer/rest/employee/1000
-	@Path("/{id}")
-	@DELETE
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response  delete(@PathParam("id") int empId){
-		Employee employee = map.get(""+empId);
-		EmployeeResponse response = new EmployeeResponse();
-		if(employee==null){
-			response.setAppStatus("ERRO1");
-			response.setStatusMsg("Employee Id not found");
-		}else{
-			map.remove(""+empId);
-			response.setStatusMsg("SUCCESS");
-			response.setAppStatus(SUCCESS_CODE);
-		}
-		return Response.status(204).entity(response).build();
-	}
 	
 	// http://localhost:8082/RestServer/rest/employee/form3?name=xyz
 	/*@Path("/form3")
