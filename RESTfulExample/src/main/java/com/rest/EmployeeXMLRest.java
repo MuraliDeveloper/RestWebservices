@@ -1,13 +1,13 @@
 package com.rest;
 
+import static com.rest.EmpData.map;
+
 import java.io.File;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -30,7 +30,6 @@ import javax.ws.rs.core.UriInfo;
 import com.module.Employee;
 import com.module.EmployeeResponse;
 import com.util.ServiceException;
-
 
 @Path("/employeeXML")
 public class EmployeeXMLRest {
@@ -257,17 +256,8 @@ public class EmployeeXMLRest {
         return rb.build();
 	}
 
-	static Map<String, Employee> map = new HashMap<String, Employee>();
 	
 	private static void saveEmp(Employee emp){
-		map.put(emp.getEmployeeId(),emp );
-	}
-	
-	static{
-		Employee emp = new Employee();
-		emp.setEmployeeId("test_ID_12121");
-		emp.setName("test_NAME_1234");
-		emp.setPan("tets_PAN_2123");
 		map.put(emp.getEmployeeId(),emp );
 	}
 	

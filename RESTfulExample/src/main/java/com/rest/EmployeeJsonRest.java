@@ -1,13 +1,13 @@
 package com.rest;
 
+import static com.rest.EmpData.map;
+
 import java.io.File;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -31,7 +31,6 @@ import javax.ws.rs.core.UriInfo;
 import com.module.Employee;
 import com.module.EmployeeResponse;
 import com.util.ServiceException;
-
 
 @Path("/employee")
 public class EmployeeJsonRest {
@@ -142,6 +141,7 @@ public class EmployeeJsonRest {
 		return Response.status(status).entity(response).build();
 	}
 	
+	//URL : http://localhost:8082/RestServer/rest/employee/query
 	@Path("/query")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -279,21 +279,11 @@ public class EmployeeJsonRest {
         rb.header("Content-Disposition","attachment; filename="+fileName);
         return rb.build();
 	}
-
-	static Map<String, Employee> map = new HashMap<String, Employee>();
 	
 	private static void saveEmp(Employee emp){
 		map.put(emp.getEmployeeId(),emp );
 	}
-	
-	static{
-		Employee emp = new Employee();
-		emp.setEmployeeId("12121");
-		emp.setName("test_NAME_1234");
-		emp.setPan("tets_PAN_2123");
-		map.put(emp.getEmployeeId(),emp );
-	}
-	
+	 
 	@Path("/header")
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
